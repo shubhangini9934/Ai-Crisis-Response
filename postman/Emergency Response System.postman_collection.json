@@ -1,0 +1,172 @@
+{
+  "info": {
+    "name": "Emergency Response System",
+    "_postman_id": "cd704860-c320-4290-8d13-e8f5ec3c9ecf",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create SOS Incident",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"reporterName\": \"Control Room\",\n  \"message\": \"Manual SOS from building A\",\n  \"severity\": \"critical\",\n  \"location\": {\n    \"latitude\": 12.9716,\n    \"longitude\": 77.5946,\n    \"address\": \"Bengaluru\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{backendUrl}}/sos",
+          "host": [
+            "{{backendUrl}}"
+          ],
+          "path": [
+            "sos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get All Incidents",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{backendUrl}}/incidents",
+          "host": [
+            "{{backendUrl}}"
+          ],
+          "path": [
+            "incidents"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Incident Summary",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{backendUrl}}/incidents/summary",
+          "host": [
+            "{{backendUrl}}"
+          ],
+          "path": [
+            "incidents",
+            "summary"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Resolve Incident",
+      "request": {
+        "method": "PATCH",
+        "url": {
+          "raw": "{{backendUrl}}/incidents/{{incidentId}}/resolve",
+          "host": [
+            "{{backendUrl}}"
+          ],
+          "path": [
+            "incidents",
+            "{{incidentId}}",
+            "resolve"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create AI Detection Incident",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"category\": \"fire\",\n  \"message\": \"AI detected possible fire in the monitored zone\",\n  \"severity\": \"critical\",\n  \"confidence\": 0.93,\n  \"metadata\": {\n    \"camera\": \"Entrance-1\",\n    \"detectionMode\": \"manual-test\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{backendUrl}}/detect",
+          "host": [
+            "{{backendUrl}}"
+          ],
+          "path": [
+            "detect"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Start AI Monitor",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"camera_index\": 0,\n  \"cooldown_seconds\": 15\n}"
+        },
+        "url": {
+          "raw": "{{aiUrl}}/monitor/start",
+          "host": [
+            "{{aiUrl}}"
+          ],
+          "path": [
+            "monitor",
+            "start"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Send AI Test Detection",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"category\": \"smoke\",\n  \"confidence\": 0.88,\n  \"detectionMode\": \"manual-test\",\n  \"bbox\": [0, 0, 640, 360]\n}"
+        },
+        "url": {
+          "raw": "{{aiUrl}}/detect",
+          "host": [
+            "{{aiUrl}}"
+          ],
+          "path": [
+            "detect"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "backendUrl",
+      "value": "http://localhost:4000/api"
+    },
+    {
+      "key": "aiUrl",
+      "value": "http://localhost:8001"
+    },
+    {
+      "key": "incidentId",
+      "value": ""
+    }
+  ]
+}

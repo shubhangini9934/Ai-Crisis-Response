@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    color: #0f172a;
+    background-color: #f8fbff;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Outfit", sans-serif;
+    letter-spacing: 0;
+  }
+
+  button,
+  input,
+  select {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .panel-surface {
+    @apply rounded-[32px] border border-white/70 bg-white/90 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl;
+  }
+
+  .input-shell {
+    @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-400 focus:ring-4 focus:ring-blue-100;
+  }
+
+  .alert-banner {
+    @apply flex flex-col gap-3 rounded-[28px] bg-gradient-to-r from-red-600 via-red-500 to-orange-400 px-5 py-4 shadow-[0_20px_50px_rgba(220,38,38,0.24)] sm:flex-row sm:items-center sm:justify-between;
+    animation: alertGlow 1.7s ease-in-out infinite;
+  }
+
+  .camera-feed {
+    @apply rounded-[30px] border border-slate-800 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.18),_transparent_28%),linear-gradient(180deg,_#111827_0%,_#020617_100%)] p-5;
+    min-height: 380px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .sos-ring {
+    animation: sosPulse 2.2s ease-in-out infinite;
+  }
+
+  .alert-popup {
+    animation: popupFlash 0.9s ease-out;
+  }
+}
+
+@keyframes sosPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 30px 65px rgba(220, 38, 38, 0.3), 0 0 0 0 rgba(220, 38, 38, 0.18);
+  }
+
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 30px 65px rgba(220, 38, 38, 0.34), 0 0 0 18px rgba(220, 38, 38, 0);
+  }
+}
+
+@keyframes alertGlow {
+  0%,
+  100% {
+    box-shadow: 0 20px 50px rgba(220, 38, 38, 0.24);
+  }
+
+  50% {
+    box-shadow: 0 24px 60px rgba(220, 38, 38, 0.34);
+  }
+}
+
+@keyframes popupFlash {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

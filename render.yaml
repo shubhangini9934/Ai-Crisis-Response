@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: emergency-response-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: CLIENT_URL
+        sync: false
+      - key: SOCKET_CORS_ORIGIN
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: FIREBASE_SERVICE_ACCOUNT
+        sync: false
+
+  - type: web
+    name: emergency-response-ai-service
+    runtime: python
+    rootDir: ai-service
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -c "import os; from uvicorn import run; run('app.main:app', host='0.0.0.0', port=int(os.getenv('PORT', os.getenv('AI_SERVICE_PORT', '8001'))))"
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8001
+      - key: AI_SERVICE_PORT
+        value: 8001
+      - key: BACKEND_API_URL
+        sync: false
+      - key: AI_MODEL_PATH
+        sync: false
+      - key: ALERT_COOLDOWN_SECONDS
+        value: 15
+      - key: CAMERA_INDEX
+        value: 0
+      - key: AI_SERVICE_CORS_ORIGINS
+        sync: false

@@ -2,7 +2,8 @@
   "name": "ai-service",
   "private": true,
   "scripts": {
-    "dev": "python -m uvicorn app.main:app --reload --port 8001",
-    "start": "python -m uvicorn app.main:app --port 8001"
+    "dev": "python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8001",
+    "start": "python -c \"import os; from uvicorn import run; run('app.main:app', host='0.0.0.0', port=int(os.getenv('PORT', os.getenv('AI_SERVICE_PORT', '8001'))))\"",
+    "build": "react-scripts build"
   }
 }

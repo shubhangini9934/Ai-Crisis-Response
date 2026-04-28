@@ -52,27 +52,13 @@ uvicorn app.main:app --reload --port 8001
 
 ## Deployment
 
-### Frontend on Vercel
+Use the step-by-step deployment guide in [DEPLOYMENT.md](</C:/Users/sahan/Desktop/Google sol/DEPLOYMENT.md>) for the exact Vercel and Render setup.
 
-- Framework preset: `Vite`
-- Root directory: `frontend`
-- Build command: `npm run build`
-- Output directory: `dist`
-- Environment variables:
-  - `VITE_API_URL`
-  - `VITE_SOCKET_URL`
-  - Firebase `VITE_FIREBASE_*` keys
+- Frontend: Vercel with `frontend` as the root directory
+- Backend: Render with `backend` as the root directory
+- AI service: Render or VM with `ai-service` as the root directory
 
-### Backend on Render or Railway
-
-- Root directory: `backend`
-- Build command: `npm install`
-- Start command: `npm start`
-- Add MongoDB URI and Firebase service account values in environment variables.
-
-### AI Service on Render / VM / Edge-capable host
-
-The OpenCV detector needs access to a webcam or uploaded video stream, so local or VM deployment is the most practical option. If you provide YOLO weights through `AI_MODEL_PATH`, the service will switch to model-based inference automatically.
+The repository now includes a root [render.yaml](</C:/Users/sahan/Desktop/Google sol/render.yaml>) blueprint for the backend and AI service.
 
 ## Firebase Push Notifications
 

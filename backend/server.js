@@ -25,11 +25,23 @@ io.on("connection", (socket) => {
 setIo(io);
 
 const startServer = async () => {
-  await connectDatabase();
+  try {
+    if (process.env.MONGODB_URI) {
+      await connectDatabase();
+      console.log("✅ Database connected");
+    } else {
+      console.log("⚠️ No database URI, running in demo mode");
+    }
 
-  server.listen(port, () => {
-    console.log(`Emergency response backend listening on port ${port}`);
-  });
+    server.listen(port, () => {
+      console.log(`🚀 Server running on port ${port}`);
+    });
+  } catch (error) {
+    console.error("⚠️ DB connection failed, starting without DB");
+  }
+    server.listen(port, () => {
+      console.log(`🚀 Server running on port ${port}`);
+    });
 };
 
 startServer().catch((error) => {
